@@ -4,11 +4,10 @@ protected:
     float volume;
     float temperature;
 public:
-    astro_object(float m, float v, float T);
-    void get_mass();
-    void get_volume();
-    void get_temperature();
-    void get_density();
+    astro_object(float m, float T);
+    float get_mass();
+    float get_temperature();
+    float get_density();
 };
 
 class Universe: public astro_object{
@@ -16,7 +15,7 @@ protected:
     float age;
     float radius;
 public:
-    Universe(float a, float r);
+    Universe(float a, float r, float m, float T);
     float get_age();
     float get_radius();
 };
@@ -31,7 +30,7 @@ protected:
     bool atmosphere;
     bool Solar_system;
 public:
-    Planet(float d, float s, float t, float T, float n, bool a, bool b);
+    Planet(float d, float s, float t, float T, float n, bool a, bool b, float m, float temp);
     float get_volume();
     float orbital_speed();
     float own_rotation_speed();
@@ -41,7 +40,7 @@ class Star: public Universe{
 protected:
     float luminosity;
 public:
-    Star(float L);
+    Star(float L, float a, float r, float m, float T);
     void get_type();
 };
 
@@ -49,7 +48,7 @@ class Galaxy: public Star{
 protected:
     float thickness_of_disk;
 public:
-    Galaxy(float td);
+    Galaxy(float td, float L, float a, float r, float m, float T);
     float get_removal_rate (float R);
     float get_rot_speed();
 };
@@ -59,7 +58,7 @@ protected:
     float concentration;
     char* type;
 public:
-    Nebula(float c);
+    Nebula(float c, float m, float T);
     float get_particle_number();
 };
 

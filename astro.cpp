@@ -3,41 +3,41 @@
 #include "Astro.hpp"
 using namespace std;
 
-astro_object(float m, float T){
+astro_object::astro_object(float m, float T){
     mass = m;
     temperature = T;
 }
 
-float get_mass(){
+float astro_object::get_mass(){
     cout << 'Mass: ' << mass;
     return(mass);
 }
 
-float get_temperature(){
+float astro_object::get_temperature(){
     cout << 'Temperature: ' << temperature;
     return(temperature);
 }
 
-float get_density(){
+float astro_object::get_density(){
     cin >> volume;
     cout << 'Average density: ' << mass / volume;
     return(mass / volume);
 }
 
-Universe(float a, float r){
+Universe::Universe(float a, float r, float m, float T): astro_object(m, T){
     age = a;
     radius = r;
 }
 
-float get_age(){
+float Universe::get_age(){
     return(age);
 }
 
-float get_radius(){
+float Universe::get_radius(){
     return(radius);
 }
 
-Planet(float d, float s, float t, float T, float n, bool a, bool b){
+Planet::Planet(float d, float s, float t, float T, float n, bool a, bool b, float m, float temp): astro_object(m, temp){
     diameter = d;
     Sun_distance = s;
     t_day = t;
@@ -47,44 +47,44 @@ Planet(float d, float s, float t, float T, float n, bool a, bool b){
     Solar_system = b;
 }
 
-float get_volume(){
+float Planet::get_volume(){
     return(4 * 3.14 * (diameter/2) * (diameter/2) * (diameter/2) / 3);
 }
 
-float orbital_speed(){
+float Planet::orbital_speed(){
     if (Solar_system == true)
         return(2 * 3.14 * Sun_distance / T_year);
         return 0;
 }
 
-float own_rotation_speed(){
+float Planet::own_rotation_speed(){
     return(2* 3.14 / t_day);
 }
 
-Star(float L){
+Star::Star(float L, float a, float r, float m, float T): Universe(a, r, m, T){
     luminosity = L;
 }
 
-void get_type(){
+void Star::get_type(){
     if (radius > 6950000000 and radius < 6950000000 and luminosity > 3.827 * 10260 and luminosity < 3.827 * 1026000)
-        cout << 'Гигант';
+        cout << 'Giant';
     if (mass > 2 * pow(10, 30) * 0.012 and mass < 2 * pow(10, 30) * 0.0767)
-        cout << 'Карлик';
+        cout << 'Dwarf';
 }
 
-Galaxy(float td){
+Galaxy::Galaxy(float td, float L, float a, float r, float m, float T): Star(L, a, r, m, T){
     thickness_of_disk = td;
 }
 
-float get_removal_rate (float R){
+float Galaxy::get_removal_rate (float R){
     return(2.2 * pow(10,-18) * R);
 }
 
-float get_rot_speed(){
+float Galaxy::get_rot_speed(){
     return(pow(mass * 6.67 * pow(10,-11) / radius / 2,0.5));
 }
 
-Nebula(float c){
+Nebula::Nebula(float c, float m, float T): astro_object(m, T){
     concentration = c;
     int n;
     cin >> n;
@@ -92,43 +92,43 @@ Nebula(float c){
         cin >> *(type + i);
 }
 
-float get_particle_number() {
+float Nebula::get_particle_number() {
     cin >> volume;
     return(volume * concentration);
 }
 
-void get_true_colour(){
+void dwarf_star::get_true_colour(){
     if (temperature > 30000 and temperature < 60000)
-        cout << 'Голубой';
+        cout << 'Blue';
     if (temperature > 10000 and temperature < 30000)
-        cout << 'Бело-голубой';
+        cout << 'White-Blue';
     if (temperature > 7500 and temperature < 10000)
-        cout << 'Белый';
+        cout << 'White';
     if (temperature > 6000 and temperature < 7500)
-        cout << 'Жёлто-белый';
+        cout << 'Yellow-white';
     if (temperature > 5000 and temperature < 6000)
-        cout << 'Жёлтый';
+        cout << 'Yellow';
     if (temperature > 3500 and temperature < 5000)
-        cout << 'Оранжевый';
+        cout << 'Orange';
     if (temperature > 2000 and temperature < 3500)
-        cout << 'Красный';
+        cout << 'Red';
 }
 
-void get_visible_colour(){
+void dwarf_star::get_visible_colour(){
     if (temperature > 30000 and temperature < 60000)
-        cout << 'Голубой';
+        cout << 'Blue';
     if (temperature > 10000 and temperature < 30000)
-        cout << 'Бело-голубой и белый';
+        cout << 'White-blue and white';
     if (temperature > 7500 and temperature < 10000)
-        cout << 'Белый';
+        cout << 'White';
     if (temperature > 6000 and temperature < 7500)
-        cout << 'Белый';
+        cout << 'White';
     if (temperature > 5000 and temperature < 6000)
-        cout << 'Жёлтый';
+        cout << 'Yellow';
     if (temperature > 3500 and temperature < 5000)
-        cout << 'Желтовато-оранжевый';
+        cout << 'Yellow-orange';
     if (temperature > 2000 and temperature < 3500)
-        cout << 'Оранжево-красный';
+        cout << 'Orange-red';
 }
 
 
